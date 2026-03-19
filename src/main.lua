@@ -13,7 +13,7 @@ local lib = mods['adamant-Modpack_Lib']
 config = chalk.auto('config.lua')
 public.config = config
 
-local backup, restore = lib.createBackupSystem()
+local backup, revert = lib.createBackupSystem()
 
 -- =============================================================================
 -- MODULE DEFINITION
@@ -48,8 +48,8 @@ end
 -- Wiring
 -- =============================================================================
 
-public.definition.enable = apply
-public.definition.disable = restore
+public.definition.apply = apply
+public.definition.revert = revert
 
 local loader = reload.auto_single()
 
@@ -64,4 +64,4 @@ modutil.once_loaded.game(function()
     end)
 end)
 
-rom.gui.add_to_menu_bar(lib.standaloneUI(public.definition, config, apply, restore))
+rom.gui.add_to_menu_bar(lib.standaloneUI(public.definition, config, apply, revert))
